@@ -38,7 +38,7 @@ try {
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-
+app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');//보안 관련해서 되지않던 유투브자동재생을 가능하게 함
 function createWindow() {
 
   // Get the displays and render the mirror on a secondary screen if it exists
@@ -148,7 +148,7 @@ if (config.remote && config.remote.enabled || firstRun) {
 	remote.on('reload', function () {
 		mainWindow.reload()
 	})
-    
+
 	remote.on('wakeUp', function () {
 		mainWindow.webContents.send('remoteWakeUp', true)
 	})
@@ -208,7 +208,7 @@ app.on('will-quit', function () {
 	if (kwsProcess) {
 		kwsProcess.kill()
 	}
-  // While cleaning up we should turn the screen back on in the event 
+  // While cleaning up we should turn the screen back on in the event
   // the program exits before the screen is woken up
 	if (mtnProcess) {
 		mtnProcess.kill()

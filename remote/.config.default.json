@@ -1,6 +1,6 @@
 {
   "general": {
-    "language": "en-US",
+    "language": "ko-KR",
     "layout": "main",
     "commandsPerPage":10
   },
@@ -32,7 +32,7 @@
     "sensitivity": "0.5"
   },
   "forecast": {
-    "key": "",
+    "key": "5bd6f02e8e5acb5565eb2fe676eb1eb2",
     "units": "auto",
     "refreshInterval": 2
   },

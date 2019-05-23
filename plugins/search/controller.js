@@ -10,7 +10,7 @@ function Search($scope, $http, SpeechService, $rootScope, Focus) {
 				'type': 'video',
 				'videoEmbeddable': 'true',
 				'videoSyndicated': 'true',
-                //Sharing this key in the hopes that it wont be abused 
+                //Sharing this key in the hopes that it wont be abused
 				'key': config.youtube.key
 			}
 		});
@@ -25,6 +25,8 @@ function Search($scope, $http, SpeechService, $rootScope, Focus) {
 	SpeechService.addCommand('video_search', function (query) {
 		searchYouTube(query).then(function (results) {
             //Set cc_load_policy=1 to force captions
+						console.log("유투브 명령어 실행");
+						console.log(config.youtube.key);
 			$scope.video = 'https://www.youtube.com/embed/' + results.data.items[0].id.videoId + '?autoplay=1&controls=0&iv_load_policy=3&enablejsapi=1&showinfo=0';
 			Focus.change("video");
 		});

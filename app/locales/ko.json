@@ -111,8 +111,8 @@
             "description": "줌을 해제합니다."
         },
         "video_search": {
-            "text": "________보여줘",
-            "voice": "*query보여줘",
+            "text": "________영상 틀어 줘",
+            "voice": "*query영상 틀어 줘",
             "description": "음성인식을 한걸 보여줍니다."
         },
         "video_stop": {
@@ -219,6 +219,107 @@
             "text": "________항목________에서 제거해줘",
             "voice": "*element항목*project에서 제거해줘",
             "description": "음성인식된 항목을 TODO리스트에서 제거합니다."
+        },
+        "user_name": {
+                  "text": "________(으)로 해 줘",
+                  "voice": "*userName(으)로 해 줘",
+                  "description": "사용자 등록시 이름을 등록합니다."
+              },
+      	"checkName": {
+                  "text": "________ 거울아",
+                  "voice": "*ans 거울아",
+                  "description": "사용자 등록시 이름을 등록합니다."
+             } ,
+      	"hue_on":{
+      	   "text": "________(방이름) 불 켜",
+                  "voice": "*room 불 켜",
+                  "description": "방이름에 맞는 불을 켭니다."
+      	},
+      	"hue_off":{
+      	   "text": "_______(방이름) 불 꺼",
+                  "voice": "*room 불 꺼",
+                  "description": "방이름에 맞는 불을 끕니다."
+      	},
+      	"hue_red":{
+      	   "text": "_______(방이름) 불 빨간색으로",
+                  "voice": "*room 불 빨간색으로",
+                  "description": "방이름에 맞는 불을 빨간색으로 변환합니다."
+      	},
+      	"hue_green":{
+      	   "text": "_______(방이름) 불 초록색으로",
+                  "voice": "*room 불 초록색으로",
+                  "description": "방이름에 맞는 불을 초록색으로 변환합니다."
+      	},
+      	"hue_yellow":{
+      	   "text": "_______(방이름) 불 노란색으로",
+                  "voice": "*room 불 노란색으로",
+                  "description": "방이름에 맞는 불을 노란색으로 변환합니다."
+      	},
+      	"hue_pink":{
+      	   "text": "_______(방이름) 불 분홍색으로",
+                  "voice": "*room 불 분홍색으로",
+                  "description": "방이름에 맞는 불을 분홍색으로 변환합니다."
+      	},
+      	"hue_blue":{
+      	   "text": "_______(방이름) 불 파란색으로",
+                  "voice": "*room 불 파란색으로",
+                  "description": "방이름에 맞는 불을 파란색으로 변환합니다."
+      	},
+      	"hue_white":{
+      	   "text": "_______(방이름) 불 흰색으로",
+                  "voice": "*room 불 흰색으로",
+                  "description": "방이름에 맞는 불을 흰색으로 변환합니다."
+      	},
+      	"hue_colorloop":{
+      	   "text": "_______(방이름) 불 오로라 색깔",
+                  "voice": "*room 불 오로라 색깔",
+                  "description": "방이름에 맞는 불을 오로라색으로 변환합니다."
+      	},
+      	"hue_colorloop_end":{
+      	   "text": "_______(방이름) 불 오로라 색깔 멈춰",
+                  "voice": "*room 불 오로라 색깔 멈춰",
+                  "description": "방이름에 맞는 오로라색을 멈춥니다."
+      	},
+      	"hue_bright":{
+      	   "text": "______(방이름) 불 밝게",
+                  "voice": "*room 불 밝게",
+                  "description": "방이름에 맞는 불을 밝게합니다."
+      	},
+      	"hue_dark":{
+      	   "text": "______(방이름) 불 어둡게",
+                  "voice": "*room 불 어둡게",
+                  "description": "방이름에 맞는 불을 어둡게 합니다."
+      	},
+      	"colorTherapy":{
+      	   "text": "컬러테라피",
+                  "voice": "컬러테라피",
+                  "description": "인증된 사용자에 감정에 따른 컬러테라피를 실행합니다."
+      	}
+      	,
+      	"colorTherapy_stop":{
+      	   "text": "컬러테라피 멈춰",
+                  "voice": "컬러테라피 멈춰",
+                  "description": "컬러테라피 실행을멈춥니다."
+      	},
+        "face_detection": {
+                  "text": "감정 분석",
+                  "voice": "감정 분석",
+                  "description": "감정분석을 시작합니다."
+              },
+        "bus": {
+                  "text": "____정류장 보여 줘",
+                  "voice": "*busName 정류장 보여 줘",
+                  "description": "사용자의 얼굴을 인식하여 로그인합니다."
+              },
+        "face_regist": {
+                  "text": "사용자 등록",
+                  "voice": "사용자 등록",
+                  "description": "사용자의 얼굴을 인식하여 등록합니다."
+              },
+        "face_detection": {
+                  "text": "거울아",
+                  "voice": "거울아",
+                  "description": "사용자의 얼굴을 인식하여 로그인합니다."
         }
     },
     "fitbit": {

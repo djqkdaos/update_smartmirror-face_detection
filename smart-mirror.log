@@ -1,0 +1,20 @@
+[Mon May 20 2019 23:02:24 GMT+0900 (JST)] Uncaught ReferenceError: d3 is not defined| Script: https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.0/nv.d3.min.js Line: 2
+[Mon May 20 2019 23:07:14 GMT+0900 (JST)] Uncaught ReferenceError: d3 is not defined| Script: https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.0/nv.d3.min.js Line: 2
+[Mon May 20 2019 23:09:47 GMT+0900 (JST)] Uncaught TypeError: nv.models.pieChart(...).x(...).y(...).showLabels(...).showLegend(...).labelThreshold(...).labelType(...).color(...).tooltipContent is not a function| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 53
+[Mon May 20 2019 23:29:10 GMT+0900 (JST)] Uncaught ReferenceError: responsiveVoice is not defined| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 67
+[Mon May 20 2019 23:40:42 GMT+0900 (JST)] Uncaught ReferenceError: responsiveVoice is not defined| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 67
+[Mon May 20 2019 23:48:32 GMT+0900 (JST)] Uncaught ReferenceError: responsiveVoice is not defined| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 68
+[Mon May 20 2019 23:56:16 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'firstChild' of null| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 349
+[Tue May 21 2019 01:31:39 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'firstChild' of null| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 349
+[Tue May 21 2019 17:03:16 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'firstChild' of null| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 370
+[Tue May 21 2019 17:14:19 GMT+0900 (JST)] Uncaught TypeError: require(...) is not a function| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 386
+[Tue May 21 2019 17:17:12 GMT+0900 (JST)] Uncaught TypeError: require(...) is not a function| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 385
+[Tue May 21 2019 17:29:26 GMT+0900 (JST)] Uncaught Error: Cannot find module 'node-datetime'| Script: internal/modules/cjs/loader.js Line: 602
+[Tue May 21 2019 17:38:31 GMT+0900 (JST)] Uncaught ReferenceError: buketName is not defined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 320
+[Wed May 22 2019 10:18:25 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token export| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 316
+[Wed May 22 2019 10:34:39 GMT+0900 (JST)] Uncaught SyntaxError: await is only valid in async function| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 327
+[Wed May 22 2019 10:42:44 GMT+0900 (JST)] Uncaught SyntaxError: await is only valid in async function| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 328
+[Wed May 22 2019 10:43:28 GMT+0900 (JST)] Uncaught SyntaxError: await is only valid in async function| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 328
+[Wed May 22 2019 11:55:11 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token }| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 696
+[Wed May 22 2019 11:55:30 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token }| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 696
+[Wed May 22 2019 11:56:32 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token }| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 696

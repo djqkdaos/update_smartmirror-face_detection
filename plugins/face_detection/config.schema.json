@@ -1,0 +1,140 @@
+{
+    "schema": {
+        "userData": {
+            "type": "array",
+            "title": "userDatas Settings",
+            "items": {
+                "type": "object",
+                    "properties": {
+                       "userName":{
+                                "type":"string",
+                                "title": "your name"
+                       },
+                      "email": {
+                          "type": "object",
+                          "properties": {
+                              "id": {
+                                  "type": "string",
+                                  "title": "your email address"
+                              },
+                              "password": {
+                                  "type": "string",
+                                  "title": "your email password or your email app password"
+                              }
+                          }
+                      },
+                      "calendar": {
+                        "type": "object",
+                        "title": "Calendar Settings",
+                        "properties": {
+                            "icals": {
+                                "type": "array",
+                                "title": "iCal URLs",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "maxResults": {
+                                "type": "integer",
+                                "title": "Max Number of Events for all iCals",
+                                "default": 9
+                            },
+                            "maxDays": {
+                                "type": "integer",
+                                "title": "Max Number of Days to display",
+                                "default": 9
+                            },
+                            "showCalendarNames": {
+                                "type": "boolean",
+                                "title": "Check to display Calendar Names",
+                                "default": false
+                             }
+                        }
+                      }
+                    }
+            }
+        }
+    },
+    "form":[
+        {
+          "type":"fieldset",
+          "expandable":true,
+          "title":"User Settings",
+          "order":0,
+
+              "items": [
+                {
+                  "type":"tabarray",
+                  "items": [
+                    {
+                      "type":"section",
+                      "legend":"{{value}}",
+                      "items":[
+                          {
+                            "key":"userData[].userName",
+                            "valueInLegend":true
+                          },
+                          "userData[].email.id",
+                          "userData[].email.password",
+                          {
+                            "type":"tabarray",
+                            "title":"calendars",
+                            "items":[
+                              {
+
+                                      "type":"section",
+                                      "legend":"iCal {{idx}}",
+                                      "items":[
+                                          {
+                                          "key":"userData[].calendar.icals[]",
+                                          "type":"textarea"
+                                          }
+                                      ]
+
+
+
+                              }
+
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "value":{
+        "userData": [{
+      "userName" : "최민준",
+      "calendar": {
+        "icals": [
+          "https://calendar.google.com/calendar/ical/yoona7394%40gmail.com/private-dd39043e3386c9761f589853dcd64e36/basic.ics\r\n"
+        ],
+        "maxResults": 9,
+        "maxDays": 9,
+        "showCalendarNames": true
+      },
+      "email": {
+        "id": "yoona7394@gmail.com",
+        "password": "atkhnxipvhhfltmf"
+      }
+    },
+    {
+      "userName":"김남억",
+      "calendar": {
+        "icals": [
+          "https://calendar.google.com/calendar/ical/djqkdaos%40gmail.com/private-bdeeadffc26c56804585f461ac398f93/basic.ics"
+        ],
+        "maxResults": 9,
+        "maxDays": 9,
+        "showCalendarNames": true
+      },
+      "email": {
+        "id": "djqkdaos@gmail.com",
+        "password": "lodxekymjkonawtz"
+      }
+
+  }]
+  }
+}

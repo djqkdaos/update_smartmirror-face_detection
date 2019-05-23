@@ -12,16 +12,20 @@ function Rss($scope, $http, $q, $interval) {
 		if (typeof config.rss != 'undefined' && typeof config.rss.feeds != 'undefined') {
 			var promises = [];
 			angular.forEach(config.rss.feeds, function (url) {
-				promises.push(parser.parseURL(url))
-			});
 
+				promises.push(parser.parseURL(url))
+
+			});
 			return $q.all(promises)
 		}
 	};
 
 	var refreshNews = function () {
 		$scope.news = null;
-		rss.get().then(function (response) {     
+
+
+		rss.get().then(function (response) {
+			//console.log("요건실행되냐냐냐");
 			//console.log("rss data="+JSON.stringify(response))
 			//For each feed
 			for (var i = 0; i < response.length; i++) {
@@ -35,14 +39,18 @@ function Rss($scope, $http, $q, $interval) {
 			}
 			$scope.currentIndex = 0;
 			$scope.rss = rss;
+		}).catch(function (err) {
+				console.log("err:"+err);
 		});
 	};
 
 	var cycleNews = function(){
 		$scope.currentIndex = ($scope.currentIndex >= $scope.rss.feed.length)? 0: $scope.currentIndex + 1;
 	}
+	console.log("config.rss:"+typeof config.rss);
+	console.log("config.rss.feeds:"+typeof config.rss.feeds);
+	if (typeof config.rss != 'undefined' && typeof config.rss.feeds != 'undefined') {
 
-	if (typeof config.rss !== 'undefined' && typeof config.rss.feeds != 'undefined') {
 		refreshNews();
 		$interval(refreshNews, config.rss.refreshInterval * 60000 || 1800000)
 		$interval(cycleNews, 8000)

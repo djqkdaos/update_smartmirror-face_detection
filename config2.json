@@ -1,0 +1,23 @@
+{
+  "faceDetection": {
+    "emotion": {
+      "anger": 0.1,
+      "contempt": 0.1,
+      "disgust": 0.1,
+      "fear": 0.1,
+      "happiness": 0.1,
+      "neutral": 0.1,
+      "sadness": 0.1,
+      "surprise": 0.1
+    },
+    "faceIds": [
+      ""
+    ],
+    "personId": {
+      "c663e177-2a04-451e-8b55-6257fc786657": "감동근",
+      "f3a2c8a6-12b3-4c9b-a7f6-5b9520a15ce3": "김남억",
+      "fb33460e-920c-4c45-a209-22142890b626": "최민준"
+    }
+  },
+  "hueState": {}
+}
