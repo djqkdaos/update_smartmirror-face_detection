@@ -2,17 +2,32 @@
 	'use strict';
 
 	function CalendarService($window, $http, $q) {
+		console.log("CalendarService함수 실행");
 		var service = {};
 
 		service.events = [];
-
+		service.test = function () {
+			console.log("CalendarService연결되서 함수 동작함");
+		}
 		service.getCalendarEvents = function () {
+			console.log("getCalendarEvents실행");
 			var deferred = $q.defer();
 
 			service.events = [];
-			if (typeof config.calendar != 'undefined' && typeof config.calendar.icals != 'undefined') {
-				loadFile(config.calendar.icals).then(function () {
+
+			var checkNum ;
+
+			for(var i =0; i<config.userData.length; i++){
+				if(config.userData[i].userName == global.name){
+					checkNum = i ;
+				}
+			}
+			//checkNum = 0;//---------------->테스트용
+			if (typeof config.userData[checkNum].calendar != 'undefined' && typeof config.userData[checkNum].calendar.icals != 'undefined') {
+				console.log(config.userData[checkNum].calendar.icals);
+				loadFile(config.userData[checkNum].calendar.icals).then(function () {
 					deferred.resolve();
+
 				});
 			} else {
 				deferred.reject("No iCals defined");
@@ -30,6 +45,7 @@
 
 			return $q.all(promises).then(function (data) {
 				for (var i = 0; i < promises.length; i++) {
+					//console.log(data[i].data);
 					parseICAL(data[i].data);
 				}
 			});
@@ -75,6 +91,7 @@
 				if (in_event && ln == 'END:VEVENT') {
 					in_event = false;
 					cur_event.calendarName = calendarName;
+
 					if (!contains(events, cur_event)) {
 						events.push(cur_event);
 					}
@@ -108,7 +125,9 @@
 					}
 
 					if (cur_event.startName && cur_event.endName) {
+
 						cur_event.label = cur_event.startName + " - " + cur_event.endName;
+
 					}
 
           //Convert timestamp
@@ -192,6 +211,7 @@
 		}
 
 		service.getEvents = function () {
+
 			return service.events;
 		}
 
@@ -236,6 +256,7 @@
 					past_events.push(itm);
 				}
 			});
+
 			return past_events.reverse();
 		}
 

@@ -320,6 +320,26 @@
                   "text": "거울아",
                   "voice": "거울아",
                   "description": "사용자의 얼굴을 인식하여 로그인합니다."
+        },
+        "face_detection": {
+                  "text": "거울아",
+                  "voice": "거울아",
+                  "description": "사용자의 얼굴을 인식하여 로그인합니다."
+        },
+        "create_face_group": {
+                  "text": "사용자 그룹 생성",
+                  "voice": "사용자 그룹 생성",
+                  "description": "사용자의 얼굴을 인식할 그룹을 생성합니다."
+        },
+        "get_face_group": {
+                  "text": "사용자 그룹 정보",
+                  "voice": "사용자 그룹 정보",
+                  "description": "사용자의 얼굴을 인식할 그룹정보를 가져옵니다."
+        },
+        "delete_face_group": {
+                  "text": "사용자 그룹 삭제",
+                  "voice": "사용자 그룹 삭제",
+                  "description": "사용자의 얼굴을 인식할 그룹정보를 가져옵니다."
         }
     },
     "fitbit": {

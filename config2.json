@@ -14,10 +14,30 @@
       ""
     ],
     "personId": {
+      "b7efa04f-fa85-4757-8412-1e0b854f3ec7": "테스트1",
+      "81b499f2-a3c2-46b3-937f-59fb73a9eb03": "김남억3",
       "c663e177-2a04-451e-8b55-6257fc786657": "감동근",
       "f3a2c8a6-12b3-4c9b-a7f6-5b9520a15ce3": "김남억",
       "fb33460e-920c-4c45-a209-22142890b626": "최민준"
+    },
+    "confidence":0.1
+  },
+  "userData": {
+    "최민준": {
+        "calendar": {
+    	    "icals": [
+    	      "https://calendar.google.com/calendar/ical/yoona7394%40gmail.com/private-dd39043e3386c9761f589853dcd64e36/basic.ics\r\n"
+    	    ],
+    	    "maxResults": 9,
+    	    "maxDays": 9,
+    	    "showCalendarNames": true
+    	},
+    	"email":{
+    		"id":"yoona7394@gmail.com",
+    		"password":"atkhnxipvhhfltmf"
+    		}
     }
+
   },
   "hueState": {}
 }

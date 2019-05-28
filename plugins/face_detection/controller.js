@@ -1,25 +1,10 @@
 
 function Face_Detection($scope, $http, SpeechService, Focus, CalendarService, $interval) {
 
-		global.faceRectangle = {
-			height: 235,
-			left: 758,
-			top: 517,
-			width:235
-		};
-		global.faceDetection = {
-			 "emotion": {
-			  "anger": 0.1,
-			  "contempt": 0.1,
-			  "disgust": 0.1,
-			  "fear": 0.1,
-			  "happiness": 0.1,
-			  "neutral": 0.1,
-			  "sadness": 0.1,
-			  "surprise": 0.1
-			 }
-		};
+
+
 		var config2 = require("/home/pi/smart-mirror/config2.json");
+		var config = require("/home/pi/smart-mirror/config.json");
 		var filename;
 		var chart;
 		var chartData;
@@ -29,13 +14,29 @@ function Face_Detection($scope, $http, SpeechService, Focus, CalendarService, $i
 		var uName = "";
 		var axios = require("axios");
 		const MSCSFACEAPI = require("mscs-face-api");
-		var Key = '6d8d7bcb961444ffb6110cf26b6845c7';
-		var useServer = 'WCUS';
-		var mscsfa = new MSCSFACEAPI(Key,"WCUS");
-		var personGroupId = 'ditsmartmirrorgroup';
+		var Key = 'c91add23164c463b9ebd5c236c1c9ff8';
+		var useServer = 'KOR';
+		var mscsfa = new MSCSFACEAPI(Key,useServer);
+		var personGroupId = 'pknusmartmirrorgroup';
+		var userData = 'pknu smart mirror team';
 		var confidenceThreshold = 0.5;
-		var userData = 'dit smart mirror team';
 		var faceUrl = "";
+		const {Storage} = require('@google-cloud/storage');
+
+		// Instantiates a client. If you don't specify credentials when constructing
+		// the client, the client library will look for credentials in the
+		// environment.
+		const storage = new Storage({
+			projectId: 'smart-mirror-239305',
+			keyFilename: '/home/pi/smart-mirror/plugins/face_detection/gcs_keyfile.json'
+		});
+		global.faceRectangle = {
+			height: 235,
+			left: 758,
+			top: 517,
+			width:235
+		};
+		global.faceDetection = config2.faceDetection;
 
 		window.onload =	nv.addGraph(function() {
 							  chart = nv.models.pieChart()
@@ -141,7 +142,8 @@ function Face_Detection($scope, $http, SpeechService, Focus, CalendarService, $i
 
 
 	function imapSevice(uName){
-		var imaps = require('imap-simple');
+				var imaps = require('imap-simple');
+				console.log("imap함수 실행");
 				var userI ;
 				var count=0 ;
 				for(var i =0; i<config.userData.length; i++){
@@ -157,7 +159,7 @@ function Face_Detection($scope, $http, SpeechService, Focus, CalendarService, $i
 					}
 				}
 				var emailConfig = {
-					imap: {
+					email: {
 						user: userI.id,
 						password: userI.password,
 						host: 'imap.gmail.com',
@@ -167,54 +169,87 @@ function Face_Detection($scope, $http, SpeechService, Focus, CalendarService, $i
 					}
 
 				};
+				console.log("emailConfig");
+				console.dir(emailConfig);
+//------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------
+
+				// imaps.connect(emailConfig).then(function (connection) {
+				// 		console.log("imap connect");
+				//
+				//
+				// 	return connection.openBox('INBOX').then(function () {
+				//
+				// 		var delay = 24 * 3600 * 1000;
+				// 		var yesterday = new Date();
+				// 			yesterday.setTime(Date.now() - delay);
+				// 			yesterday = yesterday.toISOString();
+				//
+				// 		var searchCriteria = ['UNSEEN', ['SINCE', yesterday]];
+				//
+				//
+				// 		var fetchOptions = {
+				// 			bodies: ['HEADER', 'TEXT'],
+				// 			markSeen: false
+				// 		};
+				//
+				// 		return connection.search(searchCriteria, fetchOptions).then(function (results) {
+				// 			var subjects = results.map(function (res) {
+				// 				return res.parts.filter(function (part) {
+				// 					return part.which === 'HEADER';
+				// 				})[0].body.subject[0];
+				// 			});
+				//
+				// 			console.log("subjects:"+subjects);
+				//
+				//
+				//
+				//
+				// 			var emailUl = document.getElementById("emailUl");
+				//
+				// 			while(emailUl.firstChild){
+				// 				emailUl.removeChild(emailUl.firstChild);
+				// 			}
+				//
+				// 			for(var i=0; i<subjects.length; i++){
+				// 			var node = document.createElement("LI");                 // Create a <li> node
+				// 			var textnode = document.createTextNode(subjects[i]);         // Create a text node
+				// 			node.appendChild(textnode);
+				// 			document.getElementById("emailUl").appendChild(node);
+				// 			}
+				//
+				// 		});
+				// 	});
+				// });
 				imaps.connect(emailConfig).then(function (connection) {
 
+			    return connection.openBox('INBOX').then(function () {
+			        var searchCriteria = [
+			            'UNSEEN'
+			        ];
 
+			        var fetchOptions = {
+			            bodies: ['HEADER', 'TEXT'],
+			            markSeen: false
+			        };
 
-					return connection.openBox('INBOX').then(function () {
+			        return connection.search(searchCriteria, fetchOptions).then(function (results) {
+			            var subjects = results.map(function (res) {
+			                return res.parts.filter(function (part) {
 
-						var delay = 24 * 3600 * 1000;
-						var yesterday = new Date();
-							yesterday.setTime(Date.now() - delay);
-							yesterday = yesterday.toISOString();
+			                    return part.which === 'HEADER';
+			                })[0].body.subject[0];
 
-						var searchCriteria = ['UNSEEN', ['SINCE', yesterday]];
-
-
-						var fetchOptions = {
-							bodies: ['HEADER', 'TEXT'],
-							markSeen: false
-						};
-
-						return connection.search(searchCriteria, fetchOptions).then(function (results) {
-							var subjects = results.map(function (res) {
-								return res.parts.filter(function (part) {
-									return part.which === 'HEADER';
-								})[0].body.subject[0];
-							});
-
-							console.log(subjects);
-
-
-
-
-							var emailUl = document.getElementById("emailUl");
-
-							while(emailUl.firstChild){
-								emailUl.removeChild(emailUl.firstChild);
-							}
-
-							for(var i=0; i<subjects.length; i++){
-							var node = document.createElement("LI");                 // Create a <li> node
-							var textnode = document.createTextNode(subjects[i]);         // Create a text node
-							node.appendChild(textnode);
-							document.getElementById("emailUl").appendChild(node);
-							}
-
-						});
-					});
-				});
-
+			            });
+									console.log("subjects");
+			            console.log(subjects);
+			            // =>
+			            //   [ 'Hey Chad, long time no see!',
+			            //     'Your amazon.com monthly statement',
+			            //     'Hacker Newsletter Issue #445' ]
+			        });
+			    });
+			});
 	}
 	function detectedFace(){
 
@@ -229,7 +264,16 @@ function Face_Detection($scope, $http, SpeechService, Focus, CalendarService, $i
 		contentDiv.appendChild(faceDiv);
 
 	}
-
+	var getCalendar = function(){
+		console.log("getCalendar실행");
+		CalendarService.test();
+		CalendarService.getCalendarEvents().then(function () {
+			console.log("getCalendarEventst성공함");
+			$scope.calendar = CalendarService.getFutureEvents();
+		}, function (error) {
+			console.log(error);
+		});
+	}
 
 
 	//사진에서 얼굴 찾기
@@ -250,7 +294,8 @@ function Face_Detection($scope, $http, SpeechService, Focus, CalendarService, $i
 		var imageDiv = document.createElement('div');
 
 		imageDiv.className = "picture-container";
-        img.src = '/home/pi/smart-mirror/face_img/' + filename; // 이미지 경로 설정 (랜덤)
+        //img.src = '/home/pi/smart-mirror/face_img/' + filename; // 이미지 경로 설정 (랜덤)/home/pi/Downloads/
+				img.src = '/home/pi/Downloads/test2.jpg'
 		imageDiv.appendChild(img);
 		contentDiv.appendChild(imageDiv); // board DIV 에 이미지 동적 추가
 		/*
@@ -282,403 +327,341 @@ function Face_Detection($scope, $http, SpeechService, Focus, CalendarService, $i
 
     // 얼굴인식 커맨드 추가
 	SpeechService.addCommand('face_detection', function () {
-		// Imports the Google Cloud client library.
-const {Storage} = require('@google-cloud/storage');
 
-// Instantiates a client. If you don't specify credentials when constructing
-// the client, the client library will look for credentials in the
-// environment.
-const storage = new Storage({
-  projectId: 'smart-mirror-239305',
-  keyFilename: '/home/pi/smart-mirror/plugins/face_detection/gcs_keyfile.json'
-});
-// Makes an authenticated API request.
+		function interval(){
 
-storage
-  .getBuckets()
-  .then((results) => {
-    const buckets = results[0];
+				var bucketName = 'smartmirrortest'
+				var testimg = "/home/pi/Pictures/duck.jpeg"
+				//uploadFile(bucketName,testimg);
+				var fileUrl = '/home/pi/Downloads/test2.jpg';
+				//-----------------------------------------------------------------------------20190521보호
+				// Reference an existing bucket.
+				//var bucket = gcs.bucket(bucketName);
 
-    console.log('Buckets:');
-    buckets.forEach((bucket) => {
-      console.log(bucket.name);
-    });
-  })
-  .catch((err) => {
-    console.error('ERROR111:', err);
-  });
-	var bucketName = "smartmirrortest"
-	var filename = "/home/pi/Pictures/duck.jpeg"
-	storage.bucket(bucketName).upload(filename, {
-	    // Support for HTTP requests made with `Accept-Encoding: gzip`
-	    gzip: true,
-	    // By setting the option `destination`, you can change the name of the
-	    // object you are uploading to a bucket.
-	    metadata: {
-	      // Enable long-lived HTTP caching headers
-	      // Use only if the contents of the file will never change
-	      // (If the contents will change, use cacheControl: 'no-cache')
-	      cacheControl: 'public, max-age=31536000',
-	    },
-	  });
+				// Upload a local file to a new file to be created in your bucket.
+				storage.bucket(bucketName).upload(fileUrl, {//사실 찍은 사진을 업로드 해야함
+						// Support for HTTP requests made with `Accept-Encoding: gzip`
+						gzip: true,
+						// By setting the option `destination`, you can change the name of the
+						// object you are uploading to a bucket.
+						metadata: {
+							// Enable long-lived HTTP caching headers
+							// Use only if the contents of the file will never change
+							// (If the contents will change, use cacheControl: 'no-cache')
+							cacheControl: 'public, max-age=31536000',
+						},
 
-	  console.log(`${filename} uploaded to ${bucketName}.`);
-// 		function interval(){
-//
-// 				var bucketName = 'smartmirrortest'
-// 				var testimg = "/home/pi/Pictures/duck.jpeg"
-// 				//uploadFile(bucketName,testimg);
-//
-// 				const {Storage} = require('@google-cloud/storage');
-//
-// 				// Instantiates a client. If you don't specify credentials when constructing
-// 				// the client, the client library will look for credentials in the
-// 				// environment.
-// 				const storage = new Storage();
-//
-// 				// Makes an authenticated API request.
-// 				storage
-// 				  .getBuckets()
-// 				  .then((results) => {
-// 				    const buckets = results[0];
-//
-// 				    console.log('Buckets:');
-// 				    buckets.forEach((bucket) => {
-// 				      console.log(bucket.name);
-// 				    });
-// 				  })
-// 				  .catch((err) => {
-// 				    console.error('ERROR:', err);
-// 				  });
-//
-// 				//-----------------------------------------------------------------------------20190521보호
-// 				// Reference an existing bucket.
-// 				//var bucket = gcs.bucket(bucketName);
-//
-// 				// Upload a local file to a new file to be created in your bucket.
-// 				/*bucket.upload('/home/pi/smart-mirror/face_img/'+formatted+'face.jpg', function(err, file) {
-//  					 if (!err) {
-//   					  bucket.file(filename).makePublic().then(() => {
-// 						console.log(`gs:${bucketName}/${filename} is now public.`);
-// 						$scope.face = "얼굴인식 중";
-// 						setTimeout(findInPicture,500);
-// 						$scope.faceUrl = faceUrl;
-//
-// 						setTimeout(faceDetectionInterval,2000);
-// 						//setTimeout(faceidentifyInterval, 5500);
-// 						setTimeout(userCheck, 7000);
-// 						//setTimeout(emotionCheck,4500);
-// 						//setTimeout(del_Face,10000);
-//
-//
-//
-// 						}).catch((err) => {
-// 						console.error('ERROR:', err);
-// 				});
-//  				}
-// 			});*/
-// //-----------------------------------------------------------------------------------------------------------------
-//
-//
-//
-// 		}
-//
-// 			//그룹 트레이닝
-// 			/*mscsfa.trainPersonGroup(personGroupId).then(function () {
-// 					console.log("트레이닝 후 그룹 상태 보기");
-// 					mscsfa.getPersonGroupTrainingStatus(personGroupId).then(function(){ console.log("체인성공") });
-//
-// 				}, function (error) {
-// 					// 실패시
-// 					console.error(error);
-// 				}).catch(function (err) {
-// 						reject(err.response.data.error);
-// 						console.log(res.data);
-// 				 });*/
-//
-// 		global.name ="";
-// 		global.faceIds = [""];
-// 		global.faceDetection = {
-// 			 "emotion": {
-// 			  "anger": 0.1,
-// 			  "contempt": 0.1,
-// 			  "disgust": 0.1,
-// 			  "fear": 0.1,
-// 			  "happiness": 0.1,
-// 			  "neutral": 0.1,
-// 			  "sadness": 0.1,
-// 			  "surprise": 0.1
-// 			 }
-// 		};
-//
-// 		global.name ="";
-// 		/*var emailUl = document.getElementById("emailUl");
-//
-// 		while(emailUl.firstChild){
-// 					emailUl.removeChild(emailUl.firstChild);
-// 		}*/
-//
-// 		updateChart();
-//
-//
-//
-// 		//------------------------------------------------
-// 		if(responsiveVoice.voiceSupport()) {
-//           responsiveVoice.speak("감정분석을 시작합니다.","Korean Female");
-//         }
-// 		//------------------------------------------------
-// 		var fs = require('fs');
-//
-// 		/*global.gcs = require('@google-cloud/storage')({
-//   					projectId: 'smart-mirror-239305',
-//  					keyFilename: '/home/pi/smart-mirror/plugins/face_detection/gcs_keyfile.json'
-// 				});*/
-//
-// 		var datetime = require('node-datetime');
-// 		var dt = datetime.create();
-// 		var formatted = dt.format('YmdHMS');
-//
-//
-//
-// 		//raspistill  -w 1920 -h 1080 -t 3000 -p '300,600,500,500' -o /home/pi/smart-mirror/face_img/"+formatted+'face.jpg
-// 		child = exec("fswebcam -r 1920x1080  --no-banner  /home/pi/smart-mirror/face_img/"+formatted+'face.jpg',
-// 		//child = exec("fswebcam --set brightness=0% -r 1920x1080  --no-banner  /home/pi/smart-mirror/face_img/"+formatted+'face.jpg',
-//   			function (error, stdout, stderr) {
-//     		console.log('stdout: ' + stdout);
-//     		console.log('stderr: ' + stderr);
-// 			setTimeout(interval, 2000);
-//     		if (error !== null) {
-//      	 console.log('exec error: ' + error);
-//   					  }
-// 		});
-// 		filename = formatted+'face.jpg';
-// 		faceUrl = 'https://storage.googleapis.com/smartmirrortest/'+filename;
-//
-//
-//
-// 		//face detection
-//
-//
-//
-// 	var personImage = faceUrl;
-//
-// 	//mscsfa.trainPersonGroup(personGroupId);
-// 	//mscsfa.getPersonGroupTrainingStatus(personGroupId);
-// 	//mscsfa.getPersonGroup(personGroupId);
-//
-// 	function faceDetectionInterval(){
-//
-//
-//
-// 	console.log(faceUrl+"을 분석합니다.");
-// 	mscsfa.detectFace(faceUrl).then(function () {
-// 			console.log("디텍트 이미지 전송 성공");
-// 			setTimeout(function(){
-// 				if(global.faceIds[0] != ""){
-//
-// 				mscsfa.identifyFace(personGroupId,confidenceThreshold).then(function(){
-//
-// 					setTimeout(function(){
-// 						console.log("아이덴티파이 체인성공");
-// 						//userCheck();
-// 					},2000);
-//
-// 				}).catch(function (err) {
-// 					reject(err.response.data.error);
-// 					console.log(res.data);
-// 				});
-//
-// 				}else{
-//
-// 					var contentDiv = document.getElementById('faceDetectionContent');
-//
-// 					while(contentDiv.firstChild){
-// 							contentDiv.removeChild(contentDiv.firstChild);
-// 					}
-//
-// 					/*if(responsiveVoice.voiceSupport()) {
-// 						 responsiveVoice.speak("주인님 다시한번 사용자인증 해주세요.","Korean Female");
-// 					}*/
-//
-// 					var node = document.createElement("h2");                 // Create a <li> node
-// 					var textnode = document.createTextNode("주인님  다시한번 사용자 인증 해주세요.");         // Create a text node
-// 					//node.appendChild(textnode);
-// 					contentDiv.appendChild(node);
-//
-// 				}
-//
-// 			}, 2000);
-//
-// 		}).catch(function (err) {
-//                 reject(err.response.data.error);
-// 				console.log(res.data);
-//          });
-//
-// 	}
-//
-// 	function userCheck(){
-//
-// 		var pI = global.personId;
-// 		console.log(pI);
-// 		updateChart();
-// 		if(global.personId != undefined && global.personId != ""){
-//
-// 			global.name  = config2.faceDetection.personId[pI];
-// 			console.log(global.name);
-// 			$scope.face = global.name+"님 어서오세요.";
-// 			 if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak(global.name+"님 어서오세요.","Korean Female");
-// 			 }
-//
-// 			 //$scope.confidenceCheck = "신뢰도 " +global.confidence*100 +"% 일치";
-//
-//
-// 			 console.log($scope.confidenceCheck);
-// 			updateChart();
-// 			//setTimeout(confidence_voice,4000);
-// 			setTimeout(emotionCheck,8000);
-// 			getCalendar();
-// 			$interval(getCalendar, config.calendar.refreshInterval * 60000 || 1800000);
-// 			 global.personId = "";
-// 			config2.faceDetection.faceId = [];
-// 			if(global.confidence>0.6){
-// 				mscsfa.addPersonFace(personGroupId, pI, userData, faceUrl);
-// 			}
-// 			imapSevice(global.name);
-//
-//
-//
-// 		}else{
-// 			var contentDiv = document.getElementById('faceDetectionContent');
-//
-// 				while(contentDiv.firstChild){
-// 						contentDiv.removeChild(contentDiv.firstChild);
-// 				}
-// 				setTimeout(function(){
-// 				/*if(responsiveVoice.voiceSupport()) {
-// 					 responsiveVoice.speak("주인님 사용자등록후에 사용자인증 해주세요.","Korean Female");
-// 				}*/
-// 				},3000);
-//
-// 		}
-//
-//
-// 	}
-// 		function confidence_voice(){
-// 			if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak("신뢰도"+parseInt(global.confidence*100)+"% 일치합니다.","Korean Female");
-// 			}
-// 		}
-//
-// 	//------------------------------------storege face pic delete----------------------------------
-//
-// 		function del_Face(){
-// 				// The name of the bucket to access, e.g. "my-bucket"
-// 				var bucketName = 'smartmirrortest'
-//
-// 				// The name of the file to delete, e.g. "file.txt"
-// 				 const filename = formatted+'face.jpg';
-//
-// 				// Instantiates a client
-//
-//
-// 				// Deletes the file from the bucket
-// 				gcs
-// 				  .bucket(bucketName)
-// 				  .file(filename)
-// 				  .delete()
-// 				  .then(() => {
-// 					console.log(`gs://${bucketName}/${filename} deleted.`);
-// 				  })
-// 				  .catch((err) => {
-// 					console.error('ERROR:', err);
-// 				  });
-// 			}
-// 		//-----------------------------------------------------------------------------------------------
-// 	function emotionCheck(){
-//
-// 		var contentDiv = document.getElementById('faceDetectionContent');
-//
-// 		while(contentDiv.firstChild){
-// 				contentDiv.removeChild(contentDiv.firstChild);
-// 		}
-//
-// 		//var h2 = document.createElement('h2');
-// 		//h2.style.font-color="white";
-// 		//h2.className = "picture";
-// 		//h2.innerHTML = "<font color='white'>신뢰도"+global.confidence*100+"% 일치</font>";
-//
-// 		console.log('이거 실행');
-//
-// 		//var textnode = document.createTextNode(subjects[i]);         // Create a text node
-// 		//h2.appendChild("신뢰도 " +global.confidence*100 +"% 일치");
-// 		//contentDiv.appendChild(h2);
-// 		if(global.faceDetection.emotion.anger>=0.5) {
-//
-// 			  $scope.face = "화가 나셨네요 왜 그런지 모르겠지만 기분 푸세요~";
-// 			  if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak(global.name+"님 화가 나셨나보네요 come down 진정하세요.","Korean Female");
-// 			}
-//
-// 		}else if(global.faceDetection.emotion.contempt>=0.5){
-// 			if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak(global.name+"님 왜 그런눈으로 보세요 그러면 슬퍼요..","Korean Female");
-// 			}
-//
-// 		}else if(global.faceDetection.emotion.disgust>=0.5){
-// 			if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak(global.name+"님 왜 그런눈으로 보세요 그러면 슬퍼요..","Korean Female");
-// 			}
-// 		}else if(global.faceDetection.emotion.fear>=0.5){
-// 			if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak(global.name+"님 무서워 하지마세요 경찰을 불렀으니까요.","Korean Female");
-// 			}
-// 		}else if(global.faceDetection.emotion.happiness>=0.5){
-// 			if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak(global.name+"님 오늘 기분이 좋아 보이시네요 주인님을보니 저도 행복해요.","Korean Female");
-// 			}
-// 		}else if(global.faceDetection.emotion.neutral>=0.5){
-// 			$scope.face = "화가 나셨네요 왜 그런지 모르겠지만 기분 푸세요~";
-// 			if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak(global.name+"님 오늘도 즐거운 하루 보내세요","Korean Female");
-// 			}
-// 		}else if(global.faceDetection.emotion.sadness>=0.5){
-// 			if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak(global.name+"님 슬퍼 하지마세요 제가 있짢아요 찡긋","Korean Female");
-// 			}
-// 		}else if(global.faceDetection.emotion.surprise>=0.5){
-// 			if(responsiveVoice.voiceSupport()) {
-// 				 responsiveVoice.speak(global.name+"님 왜 그렇게 놀라셨죠? 컬러페라피로 진정하시는건 어때요?","Korean Female");
-// 			}
-// 		}
-// 	}
-//
-// 	function faceidentifyInterval(){
-// 	detectedFace();
-// 	mscsfa.identifyFace(personGroupId,confidenceThreshold).then(function (res) {
-//                     resolve(res.data);
-// 					learningFace();
-//                 }).catch(function (err) {
-//                     reject(err.response.data.error);
-// 					console.log(err.response.data.error);
-//                 });
-//
-// 	}
-//
-// 	function learningFace(){
-// 		if(global.confidence>0.5)
-// 		mscsfa.addPersonFace(personGroupId, global.personId, userData, faceUrl);
-// 	}
-// 	//트레이닝
-// 		var getCalendar = function(){
-// 		CalendarService.getCalendarEvents().then(function () {
-// 			$scope.calendar = CalendarService.getFutureEvents();
-// 		}, function (error) {
-// 			console.log(error);
-// 		});
-// 	}
-//
-// 		//여기 까지
+					});
+					console.log(`gs:${bucketName}/${filename} is now public.`);
+					$scope.face = "얼굴인식 중";
+					setTimeout(findInPicture,500);//화면에 사진 출력
+					$scope.faceUrl = faceUrl;
+
+					setTimeout(faceDetectionInterval,2000);
+					//setTimeout(faceidentifyInterval, 5500);
+					setTimeout(userCheck, 7000);
+					//setTimeout(emotionCheck,4500);
+					//setTimeout(del_Face,10000);
+
+//-----------------------------------------------------------------------------------------------------------------
+
+
+
+		}
+
+			//그룹 트레이닝
+			/*mscsfa.trainPersonGroup(personGroupId).then(function () {
+					console.log("트레이닝 후 그룹 상태 보기");
+					mscsfa.getPersonGroupTrainingStatus(personGroupId).then(function(){ console.log("체인성공") });
+
+				}, function (error) {
+					// 실패시
+					console.error(error);
+				}).catch(function (err) {
+						reject(err.response.data.error);
+						console.log(res.data);
+				 });*/
+
+		global.name ="";
+		global.faceIds = [""];
+		// global.faceDetection = {
+		// 	 "emotion": {
+		// 	  "anger": 0.1,
+		// 	  "contempt": 0.1,
+		// 	  "disgust": 0.1,
+		// 	  "fear": 0.1,
+		// 	  "happiness": 0.1,
+		// 	  "neutral": 0.1,
+		// 	  "sadness": 0.1,
+		// 	  "surprise": 0.1
+		// 	 }
+		// };
+
+		global.name ="";
+		/*var emailUl = document.getElementById("emailUl");
+
+		while(emailUl.firstChild){
+					emailUl.removeChild(emailUl.firstChild);
+		}*/
+
+		updateChart();
+
+
+
+		//------------------------------------------------
+		if(responsiveVoice.voiceSupport()) {
+          responsiveVoice.speak("감정분석을 시작합니다.","Korean Female");
+        }
+		//------------------------------------------------
+
+		var datetime = require('node-datetime');
+		var dt = datetime.create();
+		var formatted = dt.format('YmdHMS');
+
+
+
+		//raspistill  -w 1920 -h 1080 -t 3000 -p '300,600,500,500' -o /home/pi/smart-mirror/face_img/"+formatted+'face.jpg
+		child = exec("fswebcam -r 1920x1080  --no-banner  /home/pi/smart-mirror/face_img/"+formatted+'face.jpg',
+		//child = exec("fswebcam --set brightness=0% -r 1920x1080  --no-banner  /home/pi/smart-mirror/face_img/"+formatted+'face.jpg',
+  			function (error, stdout, stderr) {
+    		console.log('stdout: ' + stdout);
+    		console.log('stderr: ' + stderr);
+			setTimeout(interval, 2000);
+    		if (error !== null) {
+     	 console.log('exec error: ' + error);
+  					  }
+		});
+		// filename = formatted+'face.jpg';
+		// faceUrl = 'https://console.cloud.google.com/storage/browser/smartmirrortest/'+filename;
+		filename = formatted+'face.jpg';
+		faceUrl = 'https://storage.googleapis.com/smartmirrortest/test2.jpg';
+
+
+		//face detection
+
+
+
+	var personImage = faceUrl;
+
+	//mscsfa.trainPersonGroup(personGroupId);
+	//mscsfa.getPersonGroupTrainingStatus(personGroupId);
+	//mscsfa.getPersonGroup(personGroupId);
+
+	function faceDetectionInterval(){
+
+
+
+	console.log(faceUrl+"을 분석합니다.");
+	mscsfa.detectFace(faceUrl).then(function () {
+			console.log("디텍트 이미지 전송 성공");
+			global.faceIds = config2.faceDetection.faceIds[0];
+			console.log('config.faceDetection.faceIds[0] 에 들어간 아이디 값22222 '+config2.faceDetection.faceIds[0]);
+			console.log("global.faceIds[0]:"+global.faceIds[0]);
+			setTimeout(function(){
+				if(global.faceIds[0] != ""){
+
+				mscsfa.identifyFace(personGroupId,confidenceThreshold).then(function(){
+					console.log("아이덴티파이 실행은되니?");
+					setTimeout(function(){
+						console.log("아이덴티파이 체인성공");
+						//userCheck();
+					},2000);
+
+				}).catch(function (err) {
+					reject(err.response.data.error);
+					console.log(res.data);
+				});
+
+				}else{
+
+					var contentDiv = document.getElementById('faceDetectionContent');
+
+					while(contentDiv.firstChild){
+							contentDiv.removeChild(contentDiv.firstChild);
+					}
+
+					/*if(responsiveVoice.voiceSupport()) {
+						 responsiveVoice.speak("주인님 다시한번 사용자인증 해주세요.","Korean Female");
+					}*/
+
+					var node = document.createElement("h2");                 // Create a <li> node
+					var textnode = document.createTextNode("주인님  다시한번 사용자 인증 해주세요.");         // Create a text node
+					//node.appendChild(textnode);
+					contentDiv.appendChild(node);
+
+				}
+
+			}, 2000);
+
+		}).catch(function (err) {
+                reject(err.response.data.error);
+				console.log(res.data);
+         });
+
+	}
+
+	function userCheck(){
+
+		var pI = global.personId;
+		console.log(pI);
+		updateChart();
+		if(global.personId != undefined && global.personId != ""){
+
+			global.name  = config2.faceDetection.personId[pI];
+			global.confidence = config2.faceDetection.confidence;
+			console.log(global.name);
+			$scope.face = global.name+"님 어서오세요.";
+			 if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak(global.name+"님 어서오세요.","Korean Female");
+			 }
+
+			 $scope.confidenceCheck = "신뢰도 " +global.confidence*100 +"% 일치";
+
+
+			 console.log("신뢰도 " +global.confidence*100 +"% 일치");
+			updateChart();
+			//setTimeout(confidence_voice,4000);
+			setTimeout(emotionCheck,8000);
+			//-------------------190527임시 달력체크 제거-------------------------------
+			getCalendar();
+
+			$interval(getCalendar, config.calendar.refreshInterval * 60000 || 1800000)
+			//-------------------190527임시 달력체크 제거-------------------------------
+			 global.personId = "";
+			config2.faceDetection.faceId = [];
+			if(global.confidence>0.6){
+				mscsfa.addPersonFace(personGroupId, pI, userData, faceUrl);
+			}
+			//-------------------190527임시 달력체크 제거-------------------------------
+			imapSevice(global.name);
+			//-------------------190527임시 달력체크 제거-------------------------------
+
+
+		}else{
+			var contentDiv = document.getElementById('faceDetectionContent');
+
+				while(contentDiv.firstChild){
+						contentDiv.removeChild(contentDiv.firstChild);
+				}
+				setTimeout(function(){
+				/*if(responsiveVoice.voiceSupport()) {
+					 responsiveVoice.speak("주인님 사용자등록후에 사용자인증 해주세요.","Korean Female");
+				}*/
+				},3000);
+
+		}
+
+
+	}
+		function confidence_voice(){
+			if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak("신뢰도"+parseInt(global.confidence*100)+"% 일치합니다.","Korean Female");
+			}
+		}
+
+	//------------------------------------storege face pic delete----------------------------------
+
+		function del_Face(){
+				// The name of the bucket to access, e.g. "my-bucket"
+				var bucketName = 'smartmirrortest'
+
+				// The name of the file to delete, e.g. "file.txt"
+				 const filename = formatted+'face.jpg';
+
+				// Instantiates a client
+
+
+				// Deletes the file from the bucket
+				gcs
+				  .bucket(bucketName)
+				  .file(filename)
+				  .delete()
+				  .then(() => {
+					console.log(`gs://${bucketName}/${filename} deleted.`);
+				  })
+				  .catch((err) => {
+					console.error('ERROR:', err);
+				  });
+			}
+		//-----------------------------------------------------------------------------------------------
+	function emotionCheck(){
+
+		var contentDiv = document.getElementById('faceDetectionContent');
+
+		while(contentDiv.firstChild){
+				contentDiv.removeChild(contentDiv.firstChild);
+		}
+
+		//var h2 = document.createElement('h2');
+		//h2.style.font-color="white";
+		//h2.className = "picture";
+		//h2.innerHTML = "<font color='white'>신뢰도"+global.confidence*100+"% 일치</font>";
+
+		console.log("내추럴값:"+global.faceDetection.emotion.neutral);
+
+		//var textnode = document.createTextNode(subjects[i]);         // Create a text node
+		//h2.appendChild("신뢰도 " +global.confidence*100 +"% 일치");
+		//contentDiv.appendChild(h2);
+		if(global.faceDetection.emotion.anger>=0.5) {
+
+			  $scope.face = "화가 나셨네요 왜 그런지 모르겠지만 기분 푸세요~";
+			  if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak(global.name+"님 화가 나셨나보네요 come down 진정하세요.","Korean Female");
+			}
+
+		}else if(global.faceDetection.emotion.contempt>=0.5){
+			if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak(global.name+"님 왜 그런눈으로 보세요 그러면 슬퍼요..","Korean Female");
+			}
+
+		}else if(global.faceDetection.emotion.disgust>=0.5){
+			if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak(global.name+"님 왜 그런눈으로 보세요 그러면 슬퍼요..","Korean Female");
+			}
+		}else if(global.faceDetection.emotion.fear>=0.5){
+			if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak(global.name+"님 무서워 하지마세요 경찰을 불렀으니까요.","Korean Female");
+			}
+		}else if(global.faceDetection.emotion.happiness>=0.5){
+			if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak(global.name+"님 오늘 기분이 좋아 보이시네요 주인님을보니 저도 행복해요.","Korean Female");
+			}
+		}else if(global.faceDetection.emotion.neutral>=0.5){
+			$scope.face = "화가 나셨네요 왜 그런지 모르겠지만 기분 푸세요~";
+			if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak(global.name+"님 오늘도 즐거운 하루 보내세요","Korean Female");
+			}
+		}else if(global.faceDetection.emotion.sadness>=0.5){
+			if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak(global.name+"님 슬퍼 하지마세요 제가 있짢아요 찡긋","Korean Female");
+			}
+		}else if(global.faceDetection.emotion.surprise>=0.5){
+			if(responsiveVoice.voiceSupport()) {
+				 responsiveVoice.speak(global.name+"님 왜 그렇게 놀라셨죠? 컬러테라피로 진정하시는건 어때요?","Korean Female");
+			}
+		}
+	}
+
+	function faceidentifyInterval(){
+	detectedFace();
+	mscsfa.identifyFace(personGroupId,confidenceThreshold).then(function (res) {
+                    resolve(res.data);
+					learningFace();
+                }).catch(function (err) {
+                    reject(err.response.data.error);
+					console.log(err.response.data.error);
+                });
+
+	}
+
+	function learningFace(){
+		if(global.confidence>0.5)
+		mscsfa.addPersonFace(personGroupId, global.personId, userData, faceUrl);
+	}
+	//트레이닝
+
+
+		//여기 까지
 
 
 

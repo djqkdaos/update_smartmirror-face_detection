@@ -19,8 +19,41 @@
     "enabled": true,
     "port": 8080
   },
-  "lastfm": {
-    "refreshInterval": 0.6
+  "rss": {
+    "feeds": [
+      "https://news.google.com/news/rss/?ned=kr&gl=KR&hl=ko"
+    ],
+    "refreshInterval": 120
+  },
+  "userData": [
+    {
+      "userName": "테스트1",
+      "email": {
+        "id": "djqkdaos@gmail.com",
+        "password": "qivhvcjycdoceddp"
+      },
+      "calendar": {
+        "icals": [
+          "https://calendar.google.com/calendar/ical/djqkdaos%40gmail.com/private-bdeeadffc26c56804585f461ac398f93/basic.ics"
+        ]
+      }
+    }
+  ],
+  "geoPosition": {
+    "key": "AIzaSyBbGrkLZtoXf4058xFr5Fw3uvMDWJcyYm4"
+  },
+  "giphy": {
+    "key": "dc6zaTOxFJmzC"
+  },
+  "greeting": {
+    "option": "allDay"
+  },
+  "autoTimer": {
+    "mode": "disabled",
+    "autoWake": "07:00:00",
+    "autoSleep": 40,
+    "wakeCmd": "sudo ./scripts/raspi-monitor.sh on > /dev/null 2>&1",
+    "sleepCmd": "sudo ./scripts/raspi-monitor.sh off > /dev/null 2>&1"
   },
   "fitbit": {
     "timeout": 10000,
@@ -37,35 +70,13 @@
       "state": "3(#0/!~"
     }
   },
-  "giphy": {
-    "key": "dc6zaTOxFJmzC"
-  },
-  "greeting": {
-    "option": "allDay"
-  },
-  "autoTimer": {
-    "mode": "disabled",
-    "autoWake": "07:00:00",
-    "autoSleep": 40,
-    "wakeCmd": "sudo ./scripts/raspi-monitor.sh on > /dev/null 2>&1",
-    "sleepCmd": "sudo ./scripts/raspi-monitor.sh off > /dev/null 2>&1"
-  },
-  "rss": {
-    "feeds": [
-      "https://news.google.com/news/rss/?ned=kr&gl=KR&hl=ko"
-    ],
-    "refreshInterval": 120
-  },
-  "geoPosition": {
-    "key": "AIzaSyBbGrkLZtoXf4058xFr5Fw3uvMDWJcyYm4"
+  "lastfm": {
+    "refreshInterval": 0.6
   },
   "youtube": {
     "key": "AIzaSyBzQ-hug6tJx6nHEq2akFaay0KfS5HRgv4"
   },
   "calendar": {
-    "icals": [
-      "https://calendar.google.com/calendar/ical/djqkdaos%40gmail.com/private-bdeeadffc26c56804585f461ac398f93/basic.ics"
-    ],
     "maxResults": 9,
     "maxDays": 9,
     "showCalendarNames": true

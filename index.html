@@ -109,6 +109,7 @@
       <div ng-include="'plugins/todoist/index.html'"></div>
       <div ng-include="'plugins/face_detection/index.html'"></div>
   	  <div ng-include="'plugins/face_regist/index.html'"></div>
+      <div ng-include="'plugins/Hue/index.html'"></div>
     </div>
     <div class="bottom-center">
       <!-- Command list -->
@@ -121,9 +122,11 @@
     <div class="bottom-left">
       <div ng-include="'plugins/fitbit/index.html'" ng-if="config.fitbit.creds"></div>
       <div ng-include="'plugins/scrobbler/index.html'"></div>
+      <div ng-include="'plugins/email/index.html'"></div>
     </div>
     <div class="bottom-right">
       <!-- Someday something will live here -->
+      <div ng-include="'plugins/face_detection/emotion_index.html'"></div>
     </div>
     <div ng-controller="Maker"></div>
   </div>
@@ -185,13 +188,14 @@
   <script src="plugins/scrobbler/controller.js"></script>
   <script src="plugins/greeting/controller.js"></script>
   <script src="plugins/weather/controller.js"></script>
-  <script src="plugins/calendar/controller.js"></script>
+  <!--<script src="plugins/calendar/controller.js"></script>-->
   <script src="plugins/remote/controller.js"></script>
   <script src="plugins/maker/controller.js"></script>
   <script src="plugins/todoist/controller.js"></script>
   <script src="plugins/ha-display/controller.js"></script>
   <script src="plugins/face_detection/controller.js"></script>
   <script src="plugins/face_regist/controller.js"></script>
+  <script src="plugins/Hue/controller.js"></script>
   <!-- responsivevoice.js -->
   <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
   <script src="scripts/d3_3.5.5.min.js" charset="utf-8"></script>

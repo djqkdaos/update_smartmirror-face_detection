@@ -18,3 +18,32 @@
 [Wed May 22 2019 11:55:11 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token }| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 696
 [Wed May 22 2019 11:55:30 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token }| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 696
 [Wed May 22 2019 11:56:32 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token }| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 696
+[Thu May 23 2019 22:50:34 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token .| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 171
+[Fri May 24 2019 11:21:54 GMT+0900 (JST)] Uncaught SyntaxError: missing ) after argument list| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 70
+[Fri May 24 2019 11:23:12 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token .| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 178
+[Fri May 24 2019 11:24:41 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token .| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 178
+[Fri May 24 2019 11:24:56 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token .| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 178
+[Fri May 24 2019 11:28:07 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token .| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 171
+[Fri May 24 2019 11:35:42 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token .| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 176
+[Fri May 24 2019 12:11:43 GMT+0900 (JST)] Uncaught ReferenceError: createPersonGroup is not defined| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 69
+[Fri May 24 2019 20:04:45 GMT+0900 (JST)] Uncaught ReferenceError: listPersonsInPersonGroup is not defined| Script: file:///home/pi/smart-mirror/plugins/face_regist/controller.js Line: 75
+[Sat May 25 2019 18:06:15 GMT+0900 (JST)] Uncaught Error: Cannot find module 'jsonfile-updater'| Script: internal/modules/cjs/loader.js Line: 602
+[Sun May 26 2019 11:45:26 GMT+0900 (JST)] Uncaught ReferenceError: bucket is not defined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 338
+[Mon May 27 2019 00:37:04 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'refreshInterval' of undefined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 531
+[Mon May 27 2019 00:41:03 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'refreshInterval' of undefined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 531
+[Mon May 27 2019 00:58:35 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'refreshInterval' of undefined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 531
+[Mon May 27 2019 01:01:13 GMT+0900 (JST)] Uncaught Error: Cannot find module 'imap-simple'| Script: internal/modules/cjs/loader.js Line: 602
+[Mon May 27 2019 14:30:26 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'refreshInterval' of undefined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 522
+[Mon May 27 2019 14:32:06 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'id' of undefined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 161
+[Tue May 28 2019 02:04:09 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'id' of undefined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 161
+[Tue May 28 2019 02:07:05 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'id' of undefined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 161
+[Tue May 28 2019 17:06:30 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected identifier| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 170
+[Tue May 28 2019 20:49:26 GMT+0900 (JST)] Uncaught SyntaxError: Unexpected token )| Script: file:///home/pi/smart-mirror/plugins/calendar/service.js Line: 255
+[Tue May 28 2019 20:55:09 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'refreshInterval' of undefined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 530
+[Tue May 28 2019 21:04:35 GMT+0900 (JST)] Uncaught TypeError: Cannot read property 'refreshInterval' of undefined| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 530
+[Tue May 28 2019 21:16:28 GMT+0900 (JST)] Uncaught SyntaxError: missing ) after argument list| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 674
+[Tue May 28 2019 21:18:56 GMT+0900 (JST)] Uncaught SyntaxError: missing ) after argument list| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 674
+[Tue May 28 2019 23:59:08 GMT+0900 (JST)] Uncaught TypeError: CalendarService.test is not a function| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 241
+[Wed May 29 2019 03:57:02 GMT+0900 (JST)] Uncaught SyntaxError: Invalid or unexpected token| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 239
+[Wed May 29 2019 03:59:11 GMT+0900 (JST)] Uncaught SyntaxError: Invalid or unexpected token| Script: file:///home/pi/smart-mirror/plugins/face_detection/controller.js Line: 242
+[Wed May 29 2019 05:09:38 GMT+0900 (JST)] Uncaught TypeError: hue.light is not a function| Script: file:///home/pi/smart-mirror/plugins/Hue/controller.js Line: 34
