@@ -109,7 +109,7 @@ function Face_Regist($scope, $http, SpeechService, Focus) {
 						 if(responsiveVoice.voiceSupport()) {
 							responsiveVoice.speak("그럼 사진을 찍겠습니다.","Korean Female");
 						 }
-						camera();-------->190524임시제거
+						camera();
 						//temp_interval();
 						setTimeout(interval, 2000);
 					}else{
