@@ -434,7 +434,7 @@ function Face_Detection($scope, $http, SpeechService, Focus, CalendarService, $i
 		// filename = formatted+'face.jpg';
 		// faceUrl = 'https://console.cloud.google.com/storage/browser/smartmirrortest/'+filename;
 		filename = formatted+'face.jpg';
-		faceUrl = 'https://storage.googleapis.com/smartmirrortest/test2.jpg';
+		faceUrl = 'https://storage.googleapis.com/smartmirrortest/'+filename;
 
 
 		//face detection

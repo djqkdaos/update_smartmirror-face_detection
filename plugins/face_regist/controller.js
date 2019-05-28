@@ -109,9 +109,9 @@ function Face_Regist($scope, $http, SpeechService, Focus) {
 						 if(responsiveVoice.voiceSupport()) {
 							responsiveVoice.speak("그럼 사진을 찍겠습니다.","Korean Female");
 						 }
-						//camera();-------->190524임시제거
-						temp_interval();
-						//setTimeout(interval, 2000);
+						camera();-------->190524임시제거
+						//temp_interval();
+						setTimeout(interval, 2000);
 					}else{
 						  $scope.face = "아니라면 이름을 다시 누구(으)로 해줘 라고 말해주세요.";
 						  if(responsiveVoice.voiceSupport()) {
@@ -147,7 +147,7 @@ function Face_Regist($scope, $http, SpeechService, Focus) {
 						  }
 			});
 			filename = formatted+'face.jpg';
-			faceUrl = 'https://console.cloud.google.com/storage/browser/smartmirrortest/'+filename;
+			faceUrl = 'https://storage.googleapis.com/smartmirrortest/'+filename;
 
 		}
 		//--------------------------------임시테스트사진용함수--------------------------------------------
