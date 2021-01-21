@@ -58,7 +58,7 @@
     "node-hue-api": "^2.4.5",
     "philips-hue": "^1.2.0",
     "rss-parser": "^3.6.3",
-    "socket.io": "^1.6.0",
+    "socket.io": "^2.4.0",
     "sonus": "^1.0.1"
   },
   "eslintConfig": {
